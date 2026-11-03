@@ -1,0 +1,205 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #263238;
+    background-color: #f5f7fa;
+}
+
+/* Reusable container */
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+/* Header and navigation */
+.site-header {
+    background-color: #142d4e;
+    color: white;
+    padding: 20px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #f4b942;
+}
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: #f4b942;
+}
+
+/* Home page hero */
+.hero {
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    padding: 70px 8%;
+    background: linear-gradient(120deg, #142d4e, #287094);
+    color: white;
+    border-radius: 0 0 15px 15px;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.eyebrow {
+    color: #e4a927;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-content > p:not(.eyebrow) {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #f4b942;
+    color: #142d4e;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ffd477;
+}
+
+/* Home page introduction */
+.intro-section {
+    padding: 60px 0;
+}
+
+.intro-section h2,
+.content-section h2 {
+    margin-bottom: 12px;
+    color: #142d4e;
+}
+
+.intro-section > p {
+    margin-bottom: 25px;
+}
+
+/* Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.info-card {
+    display: block;
+    background-color: white;
+    padding: 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #263238;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h2,
+.info-card h3 {
+    color: #287094;
+    margin-bottom: 12px;
+}
+
+/* Other pages */
+.page-heading {
+    padding: 65px 0 35px;
+}
+
+.page-heading h1 {
+    color: #142d4e;
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.content-section {
+    padding: 20px 0 70px;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #142d4e;
+    color: white;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 700px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-nav {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        min-height: 350px;
+        padding: 50px 7%;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading h1 {
+        font-size: 30px;
+    }
+}
