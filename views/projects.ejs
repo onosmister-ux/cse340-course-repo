@@ -1,4 +1,3 @@
-
 <%- include("partials/header", { title: title }) %>
 
 <section class="page-heading">
@@ -10,10 +9,32 @@
 <section class="content-section">
     <div class="info-card">
         <h2>Explore Projects</h2>
-        <p>
-            This section is designed to showcase projects,
-            their objectives, and the solutions they provide.
-        </p>
+
+        <% if (projects && projects.length > 0) { %>
+            <div class="projects-list">
+                <% projects.forEach(project => { %>
+                    <article class="project-card">
+                        <p class="project-date">
+                            <%= new Date(project.project_date).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                timeZone: "UTC"
+                            }) %>
+                        </p>
+
+                        <h3><%= project.project_title %></h3>
+
+                        <p>
+                            Organization:
+                            <strong><%= project.organization_name %></strong>
+                        </p>
+                    </article>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No projects are currently available.</p>
+        <% } %>
     </div>
 </section>
 

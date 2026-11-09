@@ -1,4 +1,3 @@
-
 <%- include("partials/header", { title: title }) %>
 
 <section class="page-heading">
@@ -10,10 +9,18 @@
 <section class="content-section">
     <div class="info-card">
         <h2>Explore Organizations</h2>
-        <p>
-            This section is designed to showcase organizations,
-            their missions, and the work they do.
-        </p>
+
+        <% if (organizations && organizations.length > 0) { %>
+            <div class="organizations-list">
+                <% organizations.forEach(organization => { %>
+                    <article class="organization-card">
+                        <h3><%= organization.organization_name %></h3>
+                    </article>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No organizations are currently available.</p>
+        <% } %>
     </div>
 </section>
 

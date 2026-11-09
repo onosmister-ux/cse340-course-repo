@@ -1,15 +1,16 @@
 
 const express = require("express");
 const path = require("path");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Set EJS as the view engine
+const db = require("./src/models");
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Serve static files from the public folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // Home route
@@ -20,27 +21,54 @@ app.get("/", (req, res) => {
 });
 
 // Organizations route
-app.get("/organizations", (req, res) => {
-  res.render("organizations", {
-    title: "Organizations"
-  });
+app.get("/organizations", async (req, res, next) => {
+  try {
+    const organizations = await db.organizations.getAllOrganizations();
+
+    res.render("organizations", {
+      title: "Organizations",
+      organizations
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Projects route
-app.get("/projects", (req, res) => {
-  res.render("projects", {
-    title: "Projects"
-  });
+app.get("/projects", async (req, res, next) => {
+  try {
+    const projects = await db.projects.getAllProjects();
+
+    res.render("projects", {
+      title: "Projects",
+      projects
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Categories route
-app.get("/categories", (req, res) => {
-  res.render("categories", {
-    title: "Categories"
-  });
+app.get("/categories", async (req, res, next) => {
+  try {
+    const categories = await db.categories.getAllCategories();
+
+    res.render("categories", {
+      title: "Categories",
+      categories
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
-// Start the server
+// Error handler
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Something went wrong while retrieving data.");
+});
+
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
