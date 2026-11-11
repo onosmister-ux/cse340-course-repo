@@ -1,4 +1,4 @@
-<%- include("partials/header", { title: title }) %>
+﻿<%- include("partials/header", { title: title }) %>
 
 <section class="page-heading">
     <p class="eyebrow">DISCOVER</p>
@@ -14,6 +14,14 @@
             <div class="organizations-list">
                 <% organizations.forEach(organization => { %>
                     <article class="organization-card">
+                        <% if (organization.organization_name === "Community Builders") { %>
+                            <img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo" class="organization-logo">
+                        <% } else if (organization.organization_name === "Green Future Initiative") { %>
+                            <img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo" class="organization-logo">
+                        <% } else if (organization.organization_name === "Hope Foundation") { %>
+                            <img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo" class="organization-logo">
+                        <% } %>
+
                         <h3><%= organization.organization_name %></h3>
                     </article>
                 <% }) %>
