@@ -1,3 +1,4 @@
+
 -- Drop existing tables in the correct order
 DROP TABLE IF EXISTS project_categories CASCADE;
 DROP TABLE IF EXISTS projects CASCADE;
@@ -7,7 +8,10 @@ DROP TABLE IF EXISTS organizations CASCADE;
 -- 1. Organizations table
 CREATE TABLE organizations (
     organization_id SERIAL PRIMARY KEY,
-    organization_name VARCHAR(100) NOT NULL
+    organization_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    contact_email VARCHAR(255),
+    logo VARCHAR(255)
 );
 
 -- 2. Projects table
@@ -15,6 +19,8 @@ CREATE TABLE projects (
     project_id SERIAL PRIMARY KEY,
     project_title VARCHAR(150) NOT NULL,
     project_date DATE NOT NULL,
+    location VARCHAR(150),
+    date DATE,
     organization_id INTEGER NOT NULL,
     CONSTRAINT fk_organization
         FOREIGN KEY (organization_id)
@@ -39,10 +45,27 @@ CREATE TABLE project_categories (
 );
 
 -- Insert organizations
-INSERT INTO organizations (organization_name) VALUES
-('Community Builders'),
-('Green Future Initiative'),
-('Hope Foundation');
+INSERT INTO organizations
+(organization_name, description, contact_email, logo)
+VALUES
+(
+    'Community Builders',
+    'An organization focused on community development, education, and youth empowerment.',
+    'contact@communitybuilders.example',
+    '/images/brightfuture-logo.png'
+),
+(
+    'Green Future Initiative',
+    'An organization promoting environmental protection, sustainability, and community awareness.',
+    'contact@greenfuture.example',
+    '/images/greenharvest-logo.png'
+),
+(
+    'Hope Foundation',
+    'An organization supporting healthcare, food assistance, and community wellbeing.',
+    'contact@hopefoundation.example',
+    '/images/unityserve-logo.png'
+);
 
 -- Insert categories
 INSERT INTO categories (category_name) VALUES
@@ -52,28 +75,34 @@ INSERT INTO categories (category_name) VALUES
 ('Healthcare');
 
 -- Insert projects for Community Builders
-INSERT INTO projects (project_title, project_date, organization_id) VALUES
-('Community Library Renovation', '2026-01-15', 1),
-('Youth Skills Training', '2026-02-10', 1),
-('School Supplies Donation', '2026-03-05', 1),
-('Public Playground Construction', '2026-04-12', 1),
-('Adult Literacy Programme', '2026-05-20', 1);
+INSERT INTO projects
+(project_title, project_date, location, date, organization_id)
+VALUES
+('Community Library Renovation', '2026-01-15', 'Community Library', '2026-01-15', 1),
+('Youth Skills Training', '2026-02-10', 'Youth Training Centre', '2026-02-10', 1),
+('School Supplies Donation', '2026-03-05', 'Local Schools', '2026-03-05', 1),
+('Public Playground Construction', '2026-04-12', 'Community Playground', '2026-04-12', 1),
+('Adult Literacy Programme', '2026-05-20', 'Community Learning Centre', '2026-05-20', 1);
 
 -- Insert projects for Green Future Initiative
-INSERT INTO projects (project_title, project_date, organization_id) VALUES
-('Tree Planting Campaign', '2026-01-18', 2),
-('Community Recycling Drive', '2026-02-14', 2),
-('Clean Water Awareness', '2026-03-11', 2),
-('Neighborhood Clean-up', '2026-04-16', 2),
-('Urban Garden Project', '2026-05-22', 2);
+INSERT INTO projects
+(project_title, project_date, location, date, organization_id)
+VALUES
+('Tree Planting Campaign', '2026-01-18', 'Community Green Space', '2026-01-18', 2),
+('Community Recycling Drive', '2026-02-14', 'Community Recycling Centre', '2026-02-14', 2),
+('Clean Water Awareness', '2026-03-11', 'Community Water Centre', '2026-03-11', 2),
+('Neighborhood Clean-up', '2026-04-16', 'Local Neighborhood', '2026-04-16', 2),
+('Urban Garden Project', '2026-05-22', 'Community Garden', '2026-05-22', 2);
 
 -- Insert projects for Hope Foundation
-INSERT INTO projects (project_title, project_date, organization_id) VALUES
-('Free Medical Outreach', '2026-01-20', 3),
-('Maternal Health Awareness', '2026-02-17', 3),
-('Food Distribution Programme', '2026-03-14', 3),
-('Children Health Screening', '2026-04-19', 3),
-('Community Health Education', '2026-05-25', 3);
+INSERT INTO projects
+(project_title, project_date, location, date, organization_id)
+VALUES
+('Free Medical Outreach', '2026-01-20', 'Community Health Centre', '2026-01-20', 3),
+('Maternal Health Awareness', '2026-02-17', 'Maternal Health Centre', '2026-02-17', 3),
+('Food Distribution Programme', '2026-03-14', 'Community Distribution Centre', '2026-03-14', 3),
+('Children Health Screening', '2026-04-19', 'Community Clinic', '2026-04-19', 3),
+('Community Health Education', '2026-05-25', 'Community Health Centre', '2026-05-25', 3);
 
 -- Connect projects to categories
 INSERT INTO project_categories (project_id, category_id) VALUES

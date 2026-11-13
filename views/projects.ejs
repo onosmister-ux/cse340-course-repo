@@ -1,3 +1,4 @@
+
 <%- include("partials/header", { title: title }) %>
 
 <section class="page-heading">
@@ -15,7 +16,7 @@
                 <% projects.forEach(project => { %>
                     <article class="project-card">
                         <p class="project-date">
-                            <%= new Date(project.project_date).toLocaleDateString("en-US", {
+                            <%= new Date(project.date).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "long",
                                 day: "numeric",
@@ -28,6 +29,11 @@
                         <p>
                             Organization:
                             <strong><%= project.organization_name %></strong>
+                        </p>
+
+                        <p>
+                            Location:
+                            <strong><%= project.location %></strong>
                         </p>
                     </article>
                 <% }) %>

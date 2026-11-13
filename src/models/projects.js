@@ -6,12 +6,13 @@ async function getAllProjects() {
       SELECT
         projects.project_id,
         projects.project_title,
-        projects.project_date,
+        projects.location,
+        projects.date,
         organizations.organization_name
       FROM projects
       INNER JOIN organizations
         ON projects.organization_id = organizations.organization_id
-      ORDER BY projects.project_date;
+      ORDER BY projects.date;
     `;
 
     const result = await pool.query(sql);
