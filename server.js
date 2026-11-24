@@ -1,4 +1,3 @@
-
 const express = require("express");
 const path = require("path");
 require("dotenv").config();
@@ -6,66 +5,42 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = require("./src/models");
-
+// View engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// Static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// Home route
+// Home page
 app.get("/", (req, res) => {
-  res.render("home", {
-    title: "Home"
-  });
+  res.render("home", { title: "Home" });
 });
 
-// Organizations route
-app.get("/organizations", async (req, res, next) => {
-  try {
-    const organizations = await db.organizations.getAllOrganizations();
+// Import routes
+const organizationsRoute = require("./src/routes/organizationsRoute");
+const projectsRoute = require("./src/routes/projectsRoute");
+const categoriesRoute = require("./src/routes/categoriesRoute");
 
-    res.render("organizations", {
-      title: "Organizations",
-      organizations
-    });
-  } catch (error) {
-    next(error);
-  }
+// Use routes
+app.use("/organizations", organizationsRoute);
+app.use("/projects", projectsRoute);
+app.use("/categories", categoriesRoute);
+
+// Details pages
+app.use("/organization", organizationsRoute);
+app.use("/project", projectsRoute);
+app.use("/category", categoriesRoute);
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).render("404", { title: "Page Not Found" });
 });
 
-// Projects route
-app.get("/projects", async (req, res, next) => {
-  try {
-    const projects = await db.projects.getAllProjects();
-
-    res.render("projects", {
-      title: "Projects",
-      projects
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Categories route
-app.get("/categories", async (req, res, next) => {
-  try {
-    const categories = await db.categories.getAllCategories();
-
-    res.render("categories", {
-      title: "Categories",
-      categories
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Error handler
+// 500 error handler
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).send("Something went wrong while retrieving data.");
+  res.status(500).render("500", { title: "Server Error" });
 });
 
 // Start server

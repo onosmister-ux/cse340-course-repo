@@ -1,45 +1,43 @@
-
 <%- include("partials/header", { title: title }) %>
 
 <section class="page-heading">
     <p class="eyebrow">OUR WORK</p>
     <h1>Projects</h1>
-    <p>Discover projects, creative solutions, and innovative ideas.</p>
+    <p>Discover upcoming service projects.</p>
 </section>
 
 <section class="content-section">
     <div class="info-card">
-        <h2>Explore Projects</h2>
+        <% if (projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <article class="project-card">
+                    <p class="project-date">
+                        <%= new Date(project.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            timeZone: "UTC"
+                        }) %>
+                    </p>
 
-        <% if (projects && projects.length > 0) { %>
-            <div class="projects-list">
-                <% projects.forEach(project => { %>
-                    <article class="project-card">
-                        <p class="project-date">
-                            <%= new Date(project.date).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                timeZone: "UTC"
-                            }) %>
-                        </p>
+                    <h3>
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.project_title %>
+                        </a>
+                    </h3>
 
-                        <h3><%= project.project_title %></h3>
+                    <p>
+                        Organization:
+                        <a href="/organization/<%= project.organization_id %>">
+                            <%= project.organization_name %>
+                        </a>
+                    </p>
 
-                        <p>
-                            Organization:
-                            <strong><%= project.organization_name %></strong>
-                        </p>
-
-                        <p>
-                            Location:
-                            <strong><%= project.location %></strong>
-                        </p>
-                    </article>
-                <% }) %>
-            </div>
+                    <p>Location: <%= project.location %></p>
+                </article>
+            <% }) %>
         <% } else { %>
-            <p>No projects are currently available.</p>
+            <p>No upcoming projects available.</p>
         <% } %>
     </div>
 </section>

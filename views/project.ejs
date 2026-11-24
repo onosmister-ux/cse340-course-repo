@@ -1,0 +1,37 @@
+<%- include("partials/header", { title: title }) %>
+
+<section class="page-heading">
+    <p class="eyebrow">SERVICE PROJECT</p>
+    <h1><%= project.project_title %></h1>
+</section>
+
+<section class="content-section">
+    <div class="info-card">
+        <p>
+            Organization:
+            <a href="/organization/<%= project.organization_id %>">
+                <%= project.organization_name %>
+            </a>
+        </p>
+
+        <p>Location: <%= project.location %></p>
+
+        <p>Date: <%= project.date %></p>
+
+        <h2>Categories</h2>
+
+        <% if (categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <a href="/category/<%= category.category_id %>">
+                    <span class="category-tag">
+                        <%= category.category_name %>
+                    </span>
+                </a>
+            <% }) %>
+        <% } else { %>
+            <p>No categories assigned.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include("partials/footer") %>
